@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  app:
+      build: 
+        context: ./app
+      container_name: nuber_eats_backend
+      volumes:
+        - ./app/nuber/:/app/
+      ports:
+        - 3000:3000
+      expose:
+        - "8001"
+      networks:
+        - nuber
+
+  
+networks:
+  nuber:
+    name: nuber
+    driver: bridge
+        
+  # web:
+  #     build:
+  #       context: ./web
+  #       args:
+  #         DEVELOPER_UID: $DEVELOPER_UID
+  #     container_name: boovoice_dev_web_$BRANCH_NAME
+  #     ports:
+  #       - "80:8000"
+  #     environment:
+  #       TZ: 'Asia/Tokyo'
+  #     volumes:
+  #       - ./web/conf:/etc/nginx/conf.d
+  #       - ./web/uwsgi_params:/etc/nginx/uwsgi_params
+  #       - ./web/error_log/error.log:/var/log/nginx/error.log
+  #       - ./app/boovoice/static:/home/boovoice/static
+  #     depends_on:
+  #       - app
+
+  # db:
+  #     build:
+  #       context: ./db
+  #       args:
+  #         DEVELOPER_UID: $DEVELOPER_UID
+  #     container_name: boovoice_dev_db_$BRANCH_NAME
+  #     ports:
+  #       - "3306:3306"
+  #     environment:
+  #       TZ: 'Asia/Tokyo'
+  #     volumes:
+  #       - ./db/lib/:/var/lib/mysql
+  #       - ./db/conf/my.cnf:/etc/my.cnf
+  #       # - ./db/logs/error/mysqld.log:/var/log/mysqld.log
